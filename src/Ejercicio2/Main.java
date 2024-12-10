@@ -1,21 +1,20 @@
 package Ejercicio2;
 import java.util.Scanner;
 
-// Clase Producto
-class Producto {
+public class Main {
     private String nombre;
     private double precio;
     private int cantidad;
 
-    // Constructor 1: nombre y precio, cantidad inicializada en 0
-    public Producto(String nombre, double precio) {
+    // Constructor 1: Nombre y precio
+    public Main(String nombre, double precio) {
         this.nombre = nombre;
         this.precio = precio;
         this.cantidad = 0;
     }
 
-    // Constructor 2: nombre, precio y cantidad
-    public Producto(String nombre, double precio, int cantidad) {
+    // Constructor 2: Nombre, precio y cantidad
+    public Main(String nombre, double precio, int cantidad) {
         this.nombre = nombre;
         this.precio = precio;
         this.cantidad = cantidad;
@@ -53,42 +52,45 @@ class Producto {
     }
 
     // Método para actualizar la cantidad
-    public void actualizarCantidad(int cantidadNueva) {
-        if (cantidadNueva >= 0 || (this.cantidad + cantidadNueva >= 0)) {
-            this.cantidad += cantidadNueva;
+    public void actualizarCantidad(int cantidad) {
+        if (cantidad >= 0) {
+            this.cantidad += cantidad;
+        } else if (this.cantidad + cantidad >= 0) {
+            this.cantidad += cantidad;
         } else {
-            System.out.println("La cantidad no puede ser negativa.");
+            System.out.println("No se puede reducir la cantidad por debajo de 0.");
         }
     }
-}
 
-// Clase principal para probar Producto
-public class MainProducto {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Crear producto con el primer constructor
-        Producto producto1 = new Producto("Laptop", 1500.00);
-        
-        // Crear producto con el segundo constructor
-        Producto producto2 = new Producto("Smartphone", 800.00, 5);
+        // Crear objeto con el primer constructor
+        System.out.println("Ingrese el nombre del producto: ");
+        String nombre1 = scanner.nextLine();
+        System.out.println("Ingrese el precio del producto: ");
+        double precio1 = scanner.nextDouble();
+        Main producto1 = new Main(nombre1, precio1);
 
-        // Mostrar costos iniciales
-        System.out.println("Producto 1: " + producto1.getNombre() + " | Costo total: $" + producto1.calcularCostoTotal());
-        System.out.println("Producto 2: " + producto2.getNombre() + " | Costo total: $" + producto2.calcularCostoTotal());
-
-        // Actualizar cantidades
-        System.out.print("Ingrese cantidad para agregar al Producto 1: ");
-        int cantidad1 = scanner.nextInt();
-        producto1.actualizarCantidad(cantidad1);
-        System.out.print("Ingrese cantidad para agregar al Producto 2: ");
+        // Crear objeto con el segundo constructor
+        scanner.nextLine(); // Consumir el salto de línea
+        System.out.println("Ingrese el nombre del segundo producto: ");
+        String nombre2 = scanner.nextLine();
+        System.out.println("Ingrese el precio del segundo producto: ");
+        double precio2 = scanner.nextDouble();
+        System.out.println("Ingrese la cantidad del segundo producto: ");
         int cantidad2 = scanner.nextInt();
-        producto2.actualizarCantidad(cantidad2);
+        Main producto2 = new Main(nombre2, precio2, cantidad2);
 
-        // Mostrar costos actualizados
-        System.out.println("Producto 1: " + producto1.getNombre() + " | Cantidad: " + producto1.getCantidad() + " | Costo total: $" + producto1.calcularCostoTotal());
-        System.out.println("Producto 2: " + producto2.getNombre() + " | Cantidad: " + producto2.getCantidad() + " | Costo total: $" + producto2.calcularCostoTotal());
+        // Probar métodos
+        producto1.actualizarCantidad(5); // Agregar cantidad al primer producto
+        System.out.println("Producto 1: " + producto1.getNombre() + " - Costo total: " + producto1.calcularCostoTotal());
 
-        scanner.close();
+        producto2.actualizarCantidad(-2); // Reducir cantidad del segundo producto
+        System.out.println("Producto 2: " + producto2.getNombre() + " - Costo total: " + producto2.calcularCostoTotal());
+
+        // Imprimir valores actualizados
+        System.out.println("Producto 1 cantidad: " + producto1.getCantidad());
+        System.out.println("Producto 2 cantidad: " + producto2.getCantidad());
     }
 }
